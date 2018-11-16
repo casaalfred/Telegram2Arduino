@@ -94,23 +94,44 @@ elseif($text=="/meteo")
 	$response = "Ciao $firstname, il cielo è ". $cielo .", il vento è " . $vel_vento ." provenienza " . $dir_vento. ", la pressione è di ". $pressure . " e ci sono ". $temp_att;
 }
 
-elseif($text=="/luce_on")
+elseif($text=="/balcone_on")
 {   
 	$link_luce_on = file_get_contents("http://casaalfred.ddns.net:8082/LED=ON");
     $luce_array_on=explode('>',$link_luce_on);
     $stato_luce_on=explode('<',$luce_array_on[6])[0];
 	$response = $stato_luce_on;
 }
-elseif($text=="/luce_off")
+elseif($text=="/balcone_off")
 {   
 	$link_luce_off = file_get_contents("http://casaalfred.ddns.net:8082/LED=OFF");
 	$luce_array_off=explode('>',$link_luce_off);
 	$stato_luce_off=explode('<',$luce_array_off[6])[0];
 	$response = $stato_luce_off;
 }
-elseif($text=="/luce_stato")
+elseif($text=="/balcone_stato")
 {   
 	$link_luce = file_get_contents("http://casaalfred.ddns.net:8082");
+	$luce_array=explode('>',$link_luce);
+	$stato_luce=explode('<',$luce_array[6])[0];
+	$response = $stato_luce;
+}
+elseif($text=="/soggiorno_on")
+{   
+	$link_luce_on = file_get_contents("http://casaalfred.ddns.net:8083/LED=ON");
+    $luce_array_on=explode('>',$link_luce_on);
+    $stato_luce_on=explode('<',$luce_array_on[6])[0];
+	$response = $stato_luce_on;
+}
+elseif($text=="/soggiorno_off")
+{   
+	$link_luce_off = file_get_contents("http://casaalfred.ddns.net:8083/LED=OFF");
+	$luce_array_off=explode('>',$link_luce_off);
+	$stato_luce_off=explode('<',$luce_array_off[6])[0];
+	$response = $stato_luce_off;
+}
+elseif($text=="/soggiorno_stato")
+{   
+	$link_luce = file_get_contents("http://casaalfred.ddns.net:8083");
 	$luce_array=explode('>',$link_luce);
 	$stato_luce=explode('<',$luce_array[6])[0];
 	$response = $stato_luce;
@@ -128,7 +149,7 @@ else
 $parameters = array('chat_id' => $chatId, "text" => $response);
 $parameters["method"] = "sendMessage";
 // imposto la keyboard
-$parameters["reply_markup"] = '{ "keyboard": [["/luce_on", "/luce_stato", "/luce_off"],["/situazione"]], "one_time_keyboard": false}';
+$parameters["reply_markup"] = '{ "keyboard": [["/balcone_on", "/balcone_stato", "/balcone_off"],["/soggiorno_on", "/soggiorno_stato", "/soggiorno_off"],["/situazione"]], "one_time_keyboard": false}';
 
 echo json_encode($parameters);
 ?>
