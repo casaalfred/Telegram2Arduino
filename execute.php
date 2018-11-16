@@ -149,7 +149,7 @@ else
 $parameters = array('chat_id' => $chatId, "text" => $response);
 $parameters["method"] = "sendMessage";
 // imposto la keyboard
-$parameters["reply_markup"] = '{ "keyboard": [["balcone", "soggiorno"],["/balcone_off /ud83c/udd7e", "/balcone_on", "/soggiorno_off", "/soggiorno_on"],["/situazione"]], "one_time_keyboard": false, "resize_keyboard":true}';
+$parameters["reply_markup"] = '{ "keyboard": [["balcone", "soggiorno"],["/balcone_off \ud83c\udd7e", "/balcone_on", "/soggiorno_off", "/soggiorno_on"],["/situazione"]], "one_time_keyboard": false, "resize_keyboard":true}';
 
 echo json_encode($parameters);
 ?>
