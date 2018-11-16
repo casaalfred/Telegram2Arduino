@@ -93,14 +93,14 @@ elseif($text=="/meteo")
 {   
 	$response = "Ciao $firstname, il cielo è ". $cielo .", il vento è " . $vel_vento ." provenienza " . $dir_vento. ", la pressione è di ". $pressure . " e ci sono ". $temp_att;
 }
-elseif($text=="/b_off")
+elseif($text=="/b_on")
 {   
 	$link_luce_on = file_get_contents("http://casaalfred.ddns.net:8082/LED=ON");
     $luce_array_on=explode('>',$link_luce_on);
     $stato_luce_on=explode('<',$luce_array_on[6])[0];
 	$response = $stato_luce_on;
 }
-elseif($text=="/b_on")
+elseif($text=="/b_off")
 {   
 	$link_luce_off = file_get_contents("http://casaalfred.ddns.net:8082/LED=OFF");
 	$luce_array_off=explode('>',$link_luce_off);
@@ -114,14 +114,14 @@ elseif($text=="balcone")
 	$stato_luce=explode('<',$luce_array[6])[0];
 	$response = $stato_luce;
 }
-elseif($text=="/s_off")
+elseif($text=="/s_on")
 {   
 	$link_luce_on = file_get_contents("http://casaalfred.ddns.net:8083/LED=ON");
     $luce_array_on=explode('>',$link_luce_on);
     $stato_luce_on=explode('<',$luce_array_on[6])[0];
 	$response = $stato_luce_on;
 }
-elseif($text=="/s_on")
+elseif($text=="/s_off")
 {   
 	$link_luce_off = file_get_contents("http://casaalfred.ddns.net:8083/LED=OFF");
 	$luce_array_off=explode('>',$link_luce_off);
