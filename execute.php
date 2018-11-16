@@ -142,7 +142,7 @@ elseif($text=="/help")
 
 else
 {
-	$response = "comando non riconoscuiuto. \r\n" ."Prova /help";
+	$response = $text . "comando non riconoscuiuto. \r\n" ."Prova /help";
 	
 }
 $parameters = array('chat_id' => $chatId, "text" => $response);
