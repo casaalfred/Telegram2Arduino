@@ -108,7 +108,7 @@ elseif($text=="/balcone_off")
 	$stato_luce_off=explode('<',$luce_array_off[6])[0];
 	$response = $stato_luce_off;
 }
-elseif($text=="/balcone_stato")
+elseif($text=="balcone")
 {   
 	$link_luce = file_get_contents("http://casaalfred.ddns.net:8082");
 	$luce_array=explode('>',$link_luce);
@@ -129,7 +129,7 @@ elseif($text=="/soggiorno_off")
 	$stato_luce_off=explode('<',$luce_array_off[6])[0];
 	$response = $stato_luce_off;
 }
-elseif($text=="/soggiorno_stato")
+elseif($text=="soggiorno")
 {   
 	$link_luce = file_get_contents("http://casaalfred.ddns.net:8083");
 	$luce_array=explode('>',$link_luce);
@@ -149,7 +149,7 @@ else
 $parameters = array('chat_id' => $chatId, "text" => $response);
 $parameters["method"] = "sendMessage";
 // imposto la keyboard
-$parameters["reply_markup"] = '{ "keyboard": [["/balcone_on", "/balcone_stato", "/balcone_off"],["/soggiorno_on", "/soggiorno_stato", "/soggiorno_off"],["/situazione"]], "one_time_keyboard": false, "resize_keyboard":true}';
+$parameters["reply_markup"] = '{ "keyboard": [["balcone", "soggiorno"],["/balcone_off /ud83c/udd7e", "/balcone_on", "/soggiorno_off", "/soggiorno_on"],["/situazione"]], "one_time_keyboard": false, "resize_keyboard":true}';
 
 echo json_encode($parameters);
 ?>
