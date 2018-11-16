@@ -93,14 +93,14 @@ elseif($text=="/meteo")
 {   
 	$response = "Ciao $firstname, il cielo è ". $cielo .", il vento è " . $vel_vento ." provenienza " . $dir_vento. ", la pressione è di ". $pressure . " e ci sono ". $temp_att;
 }
-elseif($text=="\u0031\u20e3")
+elseif($text=="b \u0031\u20e3")
 {   
 	$link_luce_on = file_get_contents("http://casaalfred.ddns.net:8082/LED=ON");
     $luce_array_on=explode('>',$link_luce_on);
     $stato_luce_on=explode('<',$luce_array_on[6])[0];
 	$response = $stato_luce_on;
 }
-elseif($text=="\u0030\u20e3")
+elseif($text=="b \u0030\u20e3")
 {   
 	$link_luce_off = file_get_contents("http://casaalfred.ddns.net:8082/LED=OFF");
 	$luce_array_off=explode('>',$link_luce_off);
@@ -114,14 +114,14 @@ elseif($text=="balcone")
 	$stato_luce=explode('<',$luce_array[6])[0];
 	$response = $stato_luce;
 }
-elseif($text=="1\u20e3")
+elseif($text=="s 1\u20e3")
 {   
 	$link_luce_on = file_get_contents("http://casaalfred.ddns.net:8083/LED=ON");
     $luce_array_on=explode('>',$link_luce_on);
     $stato_luce_on=explode('<',$luce_array_on[6])[0];
 	$response = $stato_luce_on;
 }
-elseif($text=="0\u20e3")
+elseif($text=="s 0\u20e3")
 {   
 	$link_luce_off = file_get_contents("http://casaalfred.ddns.net:8083/LED=OFF");
 	$luce_array_off=explode('>',$link_luce_off);
@@ -142,13 +142,13 @@ elseif($text=="/help")
 
 else
 {
-	$response = $text . "comando non riconoscuiuto. \r\n" ."Prova /help";
+	$response = $text . " comando non riconoscuiuto. \r\n" ."Prova /help";
 	
 }
 $parameters = array('chat_id' => $chatId, "text" => $response);
 $parameters["method"] = "sendMessage";
 // imposto la keyboard
-$parameters["reply_markup"] = '{ "keyboard": [["balcone", "soggiorno"],["\u0030\u20e3", "\u0031\u20e3", "0\u20e3", "1\u20e3"],["/situazione"]], "one_time_keyboard": false, "resize_keyboard":true}';
+$parameters["reply_markup"] = '{ "keyboard": [["balcone", "soggiorno"],["b \u0030\u20e3", "b \u0031\u20e3", "s 0\u20e3", "s 1\u20e3"],["/situazione"]], "one_time_keyboard": false, "resize_keyboard":true}';
 
 echo json_encode($parameters);
 ?>
