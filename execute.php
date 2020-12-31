@@ -23,7 +23,7 @@ $text = strtolower($text);
 //valori presi da thingspeak
 $temperatura_dth11 = file_get_contents('https://thingspeak.com/channels/241780/fields/1/last.txt');
 $temperatura_bmp180 = file_get_contents('https://thingspeak.com/channels/241780/fields/3/last.txt',FALSE,NULL,0,2);
-$temperatura_int= (($temperatura_dth11 + $temperatura_bmp180)/2)."°C";
+$temperatura_int= $temperatura_dth11 ."°C";
 $umidita = file_get_contents('https://thingspeak.com/channels/241780/fields/2/last.txt');
 $pressione = file_get_contents('https://thingspeak.com/channels/241780/fields/4/last.txt')." mbar";
 $gas=file_get_contents('https://thingspeak.com/channels/241780/fields/5/last.txt');
@@ -95,35 +95,17 @@ elseif($text=="/meteo")
 }
 elseif($text=="/b_on")
 {   
-	$link_luce_on = file_get_contents("http://casaalfred.ddns.net:8082/LED=ON");
-    $luce_array_on=explode('>',$link_luce_on);
-    $stato_luce_on=explode('<',$luce_array_on[6])[0];
-	$response = $stato_luce_on;
-}
-elseif($text=="/b_off")
-{   
-	$link_luce_off = file_get_contents("http://casaalfred.ddns.net:8082/LED=OFF");
-	$luce_array_off=explode('>',$link_luce_off);
-	$stato_luce_off=explode('<',$luce_array_off[6])[0];
-	$response = $stato_luce_off;
-}
-elseif($text=="balcone")
-{   
-	$link_luce = file_get_contents("http://casaalfred.ddns.net:8082");
-	$luce_array=explode('>',$link_luce);
-	$stato_luce=explode('<',$luce_array[6])[0];
-	$response = $stato_luce;
-}
+
 elseif($text=="/term_on")
 {   
-	$link_luce_on = file_get_contents("http://casaalfred.ddns.net:8084/LED=ON");
+	$link_luce_on = file_get_contents("http://casaalfred.ddns.net:8084/?a=0");
     $luce_array_on=explode('>',$link_luce_on);
     $stato_luce_on=explode('<',$luce_array_on[6])[0];
 	$response = $stato_luce_on;
 }
 elseif($text=="/term_off")
 {   
-	$link_luce_off = file_get_contents("http://casaalfred.ddns.net:8084/LED=OFF");
+	$link_luce_off = file_get_contents("http://casaalfred.ddns.net:8084/?a=1");
 	$luce_array_off=explode('>',$link_luce_off);
 	$stato_luce_off=explode('<',$luce_array_off[6])[0];
 	$response = $stato_luce_off;
@@ -148,7 +130,7 @@ else
 $parameters = array('chat_id' => $chatId, "text" => $response);
 $parameters["method"] = "sendMessage";
 // imposto la keyboard
-$parameters["reply_markup"] = '{ "keyboard": [["balcone", "termosifoni"],["/b_off", "/b_on", "/term_off", "/term_on"],["/situazione"]], "one_time_keyboard": false, "resize_keyboard":true}';
+$parameters["reply_markup"] = '{ "keyboard": [["termosifoni"],["/term_off", "/term_on"],["/situazione"]], "one_time_keyboard": false, "resize_keyboard":true}';
 
 echo json_encode($parameters);
 ?>
